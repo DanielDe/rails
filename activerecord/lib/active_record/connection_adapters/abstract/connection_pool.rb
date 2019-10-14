@@ -402,6 +402,7 @@ module ActiveRecord
         @thread_cached_conns = Concurrent::Map.new(initial_capacity: @size)
 
         @connections         = []
+        puts "Initializing automatic_reconnect to true"
         @automatic_reconnect = true
 
         # Connection pool allows for concurrent (outside the main +synchronize+ section)
@@ -1133,6 +1134,7 @@ module ActiveRecord
       # can be used as an argument for #establish_connection, for easily
       # re-establishing the connection.
       def remove_connection(spec_name)
+        puts "remove_connection(#{spec_name.inspect})"
         if pool = owner_to_pool.delete(spec_name)
           pool.automatic_reconnect = false
           pool.disconnect!

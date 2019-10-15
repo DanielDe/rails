@@ -376,6 +376,8 @@ module ActiveRecord
       #
       # The default ConnectionPool maximum size is 5.
       def initialize(spec)
+        puts "initializing pool"
+
         super()
 
         @spec = spec
@@ -1133,6 +1135,7 @@ module ActiveRecord
       # can be used as an argument for #establish_connection, for easily
       # re-establishing the connection.
       def remove_connection(spec_name)
+        puts "remove_connection(#{spec_name.inspect})"
         if pool = owner_to_pool.delete(spec_name)
           pool.automatic_reconnect = false
           pool.disconnect!

@@ -931,7 +931,7 @@ module ActiveRecord
         end
 
         def checkout_new_connection
-          # raise ConnectionNotEstablished unless @automatic_reconnect
+          raise ConnectionNotEstablished unless @automatic_reconnect
           new_connection
         end
 

@@ -48,6 +48,9 @@ module ActiveRecord
     # may be returned on an error.
     def establish_connection(config_or_env = nil)
       config_hash = resolve_config_for_connection(config_or_env)
+      puts "Establishing connection:"
+      puts "\t config_or_env: #{config_or_env.inspect}"
+      puts "\t config_hash: #{config_hash.inspect}"
       connection_handler.establish_connection(config_hash)
     end
 

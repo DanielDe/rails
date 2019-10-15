@@ -119,6 +119,7 @@ module ActiveRecord
     # When using the database key a new connection will be established every time. It is not
     # recommended to use this outside of one-off scripts.
     def connected_to(database: nil, role: nil, prevent_writes: false, &blk)
+      puts "connected_to(database: #{database.inspect})"
       if database && role
         raise ArgumentError, "connected_to can only accept a `database` or a `role` argument, but not both arguments."
       elsif database
@@ -128,7 +129,9 @@ module ActiveRecord
         end
 
         config_hash = resolve_config_for_connection(database)
+        puts "\t config_hash: #{config_hash.inspect}"
         handler = lookup_connection_handler(role)
+        puts "\t handler: #{handler.inspect}"
 
         handler.establish_connection(config_hash)
 

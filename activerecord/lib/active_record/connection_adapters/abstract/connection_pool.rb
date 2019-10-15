@@ -931,7 +931,7 @@ module ActiveRecord
         end
 
         def checkout_new_connection
-          raise ConnectionNotEstablished unless @automatic_reconnect
+          # raise ConnectionNotEstablished unless @automatic_reconnect
           new_connection
         end
 
@@ -1052,9 +1052,15 @@ module ActiveRecord
       alias :connection_pools :connection_pool_list
 
       def establish_connection(config)
-        resolver = ConnectionSpecification::Resolver.new(Base.configurations)
-        spec = resolver.spec(config)
+        puts "ConnectionHandler#establish_connection"
+        puts "\t config: #{config.inspect}"
 
+        resolver = ConnectionSpecification::Resolver.new(Base.configurations)
+        puts "\t resolver: #{resolver}"
+        spec = resolver.spec(config)
+        puts "\t spec: #{spec.inspect}"
+
+        puts "\t calling remove_connection(#{spec.name})"
         remove_connection(spec.name)
 
         message_bus = ActiveSupport::Notifications.instrumenter
